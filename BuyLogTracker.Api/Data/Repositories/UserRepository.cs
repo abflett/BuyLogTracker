@@ -1,5 +1,4 @@
-﻿using BuyLogTracker.Api.Helpers;
-using BuyLogTracker.Api.Models;
+﻿using BuyLogTracker.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuyLogTracker.Api.Data.Repositories
@@ -69,19 +68,6 @@ namespace BuyLogTracker.Api.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<bool> DeleteUserById(int id)
-        {
-            var existingUser = await GetUserById(id);
-            if (existingUser == null)
-            {
-                return false;
-            }
-
-            _applicationDbContext.Users.Remove(existingUser);
-            await _applicationDbContext.SaveChangesAsync();
-            return true;
-        }
-
         public async Task<bool> UpdateUser(User updatedUser)
         {
             var existingUser = await GetUserById(updatedUser.Id);
@@ -103,6 +89,19 @@ namespace BuyLogTracker.Api.Data.Repositories
 
                 return false;
             }
+            return true;
+        }
+
+        public async Task<bool> DeleteUserById(int id)
+        {
+            var existingUser = await GetUserById(id);
+            if (existingUser == null)
+            {
+                return false;
+            }
+
+            _applicationDbContext.Users.Remove(existingUser);
+            await _applicationDbContext.SaveChangesAsync();
             return true;
         }
     }
