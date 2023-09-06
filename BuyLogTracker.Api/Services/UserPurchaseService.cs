@@ -16,6 +16,16 @@ namespace BuyLogTracker.Api.Services
             _purchaseHistory = purchaseHistoryRepository;
         }
 
+        public async Task<List<User>> Users()
+        {
+            return await _userRepository.Users();
+        }
+
+        public async Task<List<PurchaseHistory>> PurchaseHistories()
+        {
+            return await _purchaseHistory.PurchaseHistories();
+        }
+
         public async Task<bool> AddUserPurchase(UserPurchaseDTO userPurchase)
         {
             User? user = await _userRepository.GetExistingUser(userPurchase.Name, PhoneNumber.FormatPhoneNumberForStorage(userPurchase.Phone))
