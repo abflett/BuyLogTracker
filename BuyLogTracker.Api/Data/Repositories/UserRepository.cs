@@ -12,6 +12,11 @@ namespace BuyLogTracker.Api.Data.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
+        public async Task<User?> GetExistingUser(string name, string phoneNumber)
+        {
+            return await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Name == name && u.Phone == phoneNumber);
+        }
+
         public async Task<User?> CreateUser(User user)
         {
             User? newUser = null;
@@ -33,7 +38,7 @@ namespace BuyLogTracker.Api.Data.Repositories
             return await _applicationDbContext
                 .Users
                 .Include(u => u.PurchaseHistory)
-                .SingleOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public Task<List<User>> GetUsersByName(string searchString) 

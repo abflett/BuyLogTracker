@@ -34,7 +34,7 @@ namespace BuyLogTracker.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PurchaseHistory");
+                    b.ToTable("PurchaseHistories");
                 });
 
             modelBuilder.Entity("BuyLogTracker.Api.Models.User", b =>

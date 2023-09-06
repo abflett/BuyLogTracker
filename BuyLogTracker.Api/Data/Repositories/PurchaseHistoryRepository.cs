@@ -30,7 +30,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             return await _applicationDbContext
                 .PurchaseHistories
-                .SingleOrDefaultAsync(ph => ph.Id == id);
+                .FirstOrDefaultAsync(ph => ph.Id == id);
         }
 
         public async Task<bool> UpdatePurchaseHistory(PurchaseHistory updatedPurchaseHistory)

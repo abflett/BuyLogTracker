@@ -26,7 +26,7 @@ namespace BuyLogTracker.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PurchaseHistory",
+                name: "PurchaseHistories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -36,9 +36,9 @@ namespace BuyLogTracker.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PurchaseHistory", x => x.Id);
+                    table.PrimaryKey("PK_PurchaseHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PurchaseHistory_Users_UserId",
+                        name: "FK_PurchaseHistories_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -46,8 +46,8 @@ namespace BuyLogTracker.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseHistory_UserId",
-                table: "PurchaseHistory",
+                name: "IX_PurchaseHistories_UserId",
+                table: "PurchaseHistories",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -61,7 +61,7 @@ namespace BuyLogTracker.Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PurchaseHistory");
+                name: "PurchaseHistories");
 
             migrationBuilder.DropTable(
                 name: "Users");

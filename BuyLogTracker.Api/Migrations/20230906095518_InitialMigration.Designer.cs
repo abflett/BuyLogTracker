@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BuyLogTracker.Api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230906053607_InitialMigration")]
+    [Migration("20230906095518_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace BuyLogTracker.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PurchaseHistory");
+                    b.ToTable("PurchaseHistories");
                 });
 
             modelBuilder.Entity("BuyLogTracker.Api.Models.User", b =>
