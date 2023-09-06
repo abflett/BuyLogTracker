@@ -1,5 +1,6 @@
 ﻿using BuyLogTracker.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BuyLogTracker.Api.Data.Repositories
 {
@@ -16,7 +17,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             try
             {
-                var entityEntry = await _applicationDbContext.PurchaseHistories.AddAsync(purchaseHistory);
+                EntityEntry<PurchaseHistory> entityEntry = await _applicationDbContext.PurchaseHistories.AddAsync(purchaseHistory);
                 await _applicationDbContext.SaveChangesAsync();
                 return entityEntry.Entity;
             }

@@ -17,7 +17,7 @@ namespace BuyLogTracker.Api.Controllers
             _userPurchase = userPurchaseService;
         }
 
-        [HttpPost("addUserPurchase")]
+        [HttpPost("AddUserPurchase")]
         public async Task<IActionResult> AddUserPurchase(UserPurchaseDTO userPurchase)
         {
             bool result = await _userPurchase.AddUserPurchase(userPurchase);
@@ -30,7 +30,7 @@ namespace BuyLogTracker.Api.Controllers
             return BadRequest("Failed to add user purchase.");
         }
 
-        [HttpPost("addPurchaseToUser")]
+        [HttpPost("AddPurchaseToUser")]
         public async Task<IActionResult> AddPurchaseToUser(PurchaseDTO purchase)
         {
             bool result = await _userPurchase.AddPurchaseToUser(purchase);
@@ -43,21 +43,21 @@ namespace BuyLogTracker.Api.Controllers
             return BadRequest("Failed to add purchase to user.");
         }
 
-        [HttpGet("findUsersByName")]
+        [HttpGet("FindUsersByName")]
         public async Task<ActionResult<List<User>>> FindUsersByName(string searchString)
         {
             var users = await _userPurchase.FindUsersByName(searchString);
             return Ok(users);
         }
 
-        [HttpGet("findUsersByPhone")]
+        [HttpGet("FindUsersByPhone")]
         public async Task<ActionResult<List<User>>> FindUsersByPhone(string searchString)
         {
             var users = await _userPurchase.FindUsersByPhone(searchString);
             return Ok(users);
         }
 
-        [HttpGet("userById/{id}")]
+        [HttpGet("UserById/{id}")]
         public async Task<ActionResult<List<User>>> UserById(int id)
         {
             var user = await _userPurchase.UserById(id);
@@ -65,7 +65,7 @@ namespace BuyLogTracker.Api.Controllers
         }
         // Add other endpoints for FindUsersByEmail, FindUsersByPurchaseHistoryDescription, UserById, etc.
 
-        [HttpDelete("deleteUser/{userId}")]
+        [HttpDelete("DeleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             bool result = await _userPurchase.DeleteUser(userId);
