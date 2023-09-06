@@ -13,11 +13,20 @@ namespace BuyLogTracker.Api.Data.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<User?> CreateUser(User user)
         {
-            var newUser = await _applicationDbContext.Users.AddAsync(user);
+            User? newUser = null;
+            try
+            {
+                var entityEntry = await _applicationDbContext.Users.AddAsync(user);
+                newUser = entityEntry.Entity;
+            }
+            catch (Exception)
+            {
+                return newUser;
+            }
             await _applicationDbContext.SaveChangesAsync();
-            return newUser.Entity;
+            return newUser;
         }
 
         public async Task<User?> GetUserById(int id)
@@ -84,7 +93,16 @@ namespace BuyLogTracker.Api.Data.Repositories
             existingUser.Name = updatedUser.Name;
             existingUser.Phone = updatedUser.Phone;
             existingUser.Email = updatedUser.Email;
-            await _applicationDbContext.SaveChangesAsync();
+
+            try
+            {
+                await _applicationDbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
             return true;
         }
     }
