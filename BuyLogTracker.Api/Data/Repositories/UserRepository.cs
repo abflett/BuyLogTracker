@@ -40,7 +40,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             return _applicationDbContext
                 .Users
-                .Where(u => u.Name.Contains(PhoneNumber.FormatPhoneNumberForStorage(searchString)))
+                .Where(u => u.Name.Contains(searchString))
                 .ToListAsync();
         }
 
