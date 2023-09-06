@@ -43,6 +43,33 @@ namespace BuyLogTracker.Api.Controllers
             return BadRequest("Failed to add purchase to user.");
         }
 
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser(UserDTO user)
+        {
+            var result = await _userPurchase.CreateUser(user);
+
+            if (result != null)
+            {
+                return Ok("User created successfully.");
+            }
+
+            return BadRequest("Failed to add new user.");
+        }
+
+        [HttpGet("Users")]
+        public async Task<ActionResult<List<User>>> Users()
+        {
+            var users = await _userPurchase.Users();
+            return Ok(users);
+        }
+
+        [HttpGet("PurchaseHistories")]
+        public async Task<ActionResult<List<User>>> PurchaseHistories()
+        {
+            var users = await _userPurchase.PurchaseHistories();
+            return Ok(users);
+        }
+
         [HttpGet("FindUsersByName")]
         public async Task<ActionResult<List<User>>> FindUsersByName(string searchString)
         {
@@ -57,18 +84,59 @@ namespace BuyLogTracker.Api.Controllers
             return Ok(users);
         }
 
+        [HttpGet("FindUsersByEmail")]
+        public async Task<ActionResult<List<User>>> FindUsersByEmail(string searchString)
+        {
+            var users = await _userPurchase.FindUsersByEmail(searchString);
+            return Ok(users);
+        }
+
+        [HttpGet("FindUsersByPurchaseHistoryDescription")]
+        public async Task<ActionResult<List<User>>> FindUsersByPurchaseHistoryDescription(string searchString)
+        {
+            var users = await _userPurchase.FindUsersByPurchaseHistoryDescription(searchString);
+            return Ok(users);
+        }
+
         [HttpGet("UserById/{id}")]
         public async Task<ActionResult<List<User>>> UserById(int id)
         {
             var user = await _userPurchase.UserById(id);
             return Ok(user);
         }
-        // Add other endpoints for FindUsersByEmail, FindUsersByPurchaseHistoryDescription, UserById, etc.
 
-        [HttpDelete("DeleteUser/{userId}")]
-        public async Task<IActionResult> DeleteUser(int userId)
+        [HttpPut("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(User updatedUser)
         {
-            bool result = await _userPurchase.DeleteUser(userId);
+            bool result = await _userPurchase.UpdateUser(updatedUser);
+            if (result)
+            {
+                return Ok("User updated successfully.");
+            }
+            else
+            {
+                return NotFound("User not found or update failed.");
+            }
+        }
+
+        [HttpPut("UpdatePurchaseHistory")]
+        public async Task<IActionResult> UpdatePurchaseHistory(PurchaseHistory updatedPurchaseHistory)
+        {
+            bool result = await _userPurchase.UpdatePurchaseHistory(updatedPurchaseHistory);
+            if (result)
+            {
+                return Ok("Purchase history updated successfully.");
+            }
+            else
+            {
+                return NotFound("Purchase history not found or update failed.");
+            }
+        }
+
+        [HttpDelete("DeleteUser/{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            bool result = await _userPurchase.DeleteUser(id);
 
             if (result)
             {
@@ -78,6 +146,17 @@ namespace BuyLogTracker.Api.Controllers
             return BadRequest("Failed to delete user.");
         }
 
-        // Add similar endpoints for UpdateUser, DeletePurchaseHistory, UpdatePurchaseHistory, etc.
+        [HttpDelete("DeletePurchaseHistory/{id}")]
+        public async Task<IActionResult> DeletePurchaseHistory(int id)
+        {
+            bool result = await _userPurchase.DeletePurchaseHistory(id);
+
+            if (result)
+            {
+                return Ok("PurchaseHistory deleted successfully.");
+            }
+
+            return BadRequest("Failed to delete PurchaseHistory.");
+        }
     }
 }
