@@ -2,6 +2,7 @@ using BuyLogTracker.Api.Data;
 using BuyLogTracker.Api.Data.Repositories;
 using BuyLogTracker.Api.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,12 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<PurchaseHistoryRepository>();
 builder.Services.AddScoped<UserPurchaseService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

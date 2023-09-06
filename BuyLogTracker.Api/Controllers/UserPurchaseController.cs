@@ -10,17 +10,17 @@ namespace BuyLogTracker.Api.Controllers
     [ApiController]
     public class UserPurchaseController : ControllerBase
     {
-        private readonly UserPurchaseService _userPurchaseService;
+        private readonly UserPurchaseService _userPurchase;
 
         public UserPurchaseController(UserPurchaseService userPurchaseService)
         {
-            _userPurchaseService = userPurchaseService;
+            _userPurchase = userPurchaseService;
         }
 
         [HttpPost("addUserPurchase")]
         public async Task<IActionResult> AddUserPurchase(UserPurchaseDTO userPurchase)
         {
-            bool result = await _userPurchaseService.AddUserPurchase(userPurchase);
+            bool result = await _userPurchase.AddUserPurchase(userPurchase);
 
             if (result)
             {
@@ -33,7 +33,7 @@ namespace BuyLogTracker.Api.Controllers
         [HttpPost("addPurchaseToUser")]
         public async Task<IActionResult> AddPurchaseToUser(PurchaseDTO purchase)
         {
-            bool result = await _userPurchaseService.AddPurchaseToUser(purchase);
+            bool result = await _userPurchase.AddPurchaseToUser(purchase);
 
             if (result)
             {
@@ -46,23 +46,29 @@ namespace BuyLogTracker.Api.Controllers
         [HttpGet("findUsersByName")]
         public async Task<ActionResult<List<User>>> FindUsersByName(string searchString)
         {
-            var users = await _userPurchaseService.FindUsersByName(searchString);
+            var users = await _userPurchase.FindUsersByName(searchString);
             return Ok(users);
         }
 
         [HttpGet("findUsersByPhone")]
         public async Task<ActionResult<List<User>>> FindUsersByPhone(string searchString)
         {
-            var users = await _userPurchaseService.FindUsersByPhone(searchString);
+            var users = await _userPurchase.FindUsersByPhone(searchString);
             return Ok(users);
         }
 
+        [HttpGet("userById/{id}")]
+        public async Task<ActionResult<List<User>>> UserById(int id)
+        {
+            var user = await _userPurchase.UserById(id);
+            return Ok(user);
+        }
         // Add other endpoints for FindUsersByEmail, FindUsersByPurchaseHistoryDescription, UserById, etc.
 
         [HttpDelete("deleteUser/{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
-            bool result = await _userPurchaseService.DeleteUser(userId);
+            bool result = await _userPurchase.DeleteUser(userId);
 
             if (result)
             {

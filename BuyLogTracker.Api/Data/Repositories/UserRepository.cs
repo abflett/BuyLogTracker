@@ -45,7 +45,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             return _applicationDbContext
                 .Users
-                .Where(u => u.Name.Contains(searchString, StringComparison.CurrentCultureIgnoreCase))
+                .Where(u => u.Name.ToUpper().Contains(searchString.ToUpper()))
                 .ToListAsync();
         }
 
@@ -53,7 +53,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             return _applicationDbContext
                 .Users
-                .Where(u => u.Name.Contains(searchString))
+                .Where(u => u.Phone.Contains(searchString))
                 .ToListAsync();
         }
 
@@ -61,7 +61,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             return _applicationDbContext
                 .Users
-                .Where(u => u.Email!.Contains(searchString, StringComparison.CurrentCultureIgnoreCase))
+                .Where(u => u.Email!.ToUpper().Contains(searchString.ToUpper()))
                 .ToListAsync();
         }
 
@@ -69,7 +69,7 @@ namespace BuyLogTracker.Api.Data.Repositories
         {
             return _applicationDbContext
                 .Users
-                .Where(u => u.PurchaseHistory!.Any(ph => ph.Description.Contains(searchString, StringComparison.CurrentCultureIgnoreCase)))
+                .Where(u => u.PurchaseHistory!.Any(ph => ph.Description.ToUpper().Contains(searchString.ToUpper())))
                 .ToListAsync();
         }
 

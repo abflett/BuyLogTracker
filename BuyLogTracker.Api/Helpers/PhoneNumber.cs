@@ -8,7 +8,7 @@
             string cleanedPhoneNumber = new(phoneNumber.Where(char.IsDigit).ToArray());
 
             // Define the mask format and initialize an empty formatted number
-            string maskFormat = "X (XXX) XXX - XXXX";
+            string maskFormat = "(XXX) XXX - XXXX";
             string formattedPhoneNumber = string.Empty;
 
             // Start from the end of the mask and iterate backward through the digits
