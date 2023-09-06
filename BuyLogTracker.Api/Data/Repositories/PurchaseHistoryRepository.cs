@@ -13,6 +13,11 @@ namespace BuyLogTracker.Api.Data.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
+        public async Task<List<PurchaseHistory>> PurchaseHistories()
+        {
+            return await _applicationDbContext.PurchaseHistories.ToListAsync();
+        }
+
         public async Task<PurchaseHistory?> CreatePurchaseHistory(PurchaseHistory purchaseHistory)
         {
             try

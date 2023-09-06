@@ -12,6 +12,11 @@ namespace BuyLogTracker.Api.Data.Repositories
             _applicationDbContext = applicationDbContext;
         }
 
+        public async Task<List<User>> Users ()
+        {
+            return await _applicationDbContext.Users.Include(u => u.PurchaseHistory).ToListAsync();
+        }
+
         public async Task<User?> GetExistingUser(string name, string phoneNumber)
         {
             return await _applicationDbContext.Users.FirstOrDefaultAsync(u => u.Name == name && u.Phone == phoneNumber);
